@@ -9,10 +9,6 @@ services:
       - "27020:27017"
     networks:
       - item-app-net
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: admin123
-      MONGO_INITDB_DATABASE: admin
     volumes:
       - "app-db:/data/db"
     restart: on-failure
@@ -24,9 +20,6 @@ services:
       - "80:8080"
     networks: 
       - item-app-net
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: admin123
     depends_on:
       - item-db
     restart: on-failure
