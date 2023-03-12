@@ -27,7 +27,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: admin123
-      DB_HOST: item-db
     depends_on:
       - item-db
     restart: on-failure
