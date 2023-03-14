@@ -1,34 +1,73 @@
+# Menentukan versi docker compose
 version: "3.8"
 
+# Membuat/menginisialisasikan service untuk menjalankan/sebagai wadah container, bisa 1 container atau lebih.
 services:
 
+# Membuat container id
   item-db:
+
+  # Membuat nama container
     container_name: item-db
+
+    # Mengambil image dari docker hub
     image: mongo:3
+
+    # Mapping port dari docker image agar bisa di akses di public
     ports:
       - "27020:27017"
+    
+    # Membuat network untuk container agar bisa terhubung ke container lain
     networks:
       - item-app-net
+    
+    # Membuat/inisialisasi volume untuk container database
     volumes:
       - "app-db:/data/db"
-    restart: on-failure
+    
+    # Restart container jika container berhenti saat di jalankan 
+    restart: always
 
+# Membuat container id
   item-app:
+    # Membuat nama container
     container_name: item-app
-    image: item-app:v1
+
+    # Mengambil image dari github registry
+    image: ghcr.io/yogiflogic/item-app:v1
+
+    # Mapping port dari docker image agar agar di akses di public
     ports: 
       - "80:8080"
+
+    # Membuat network untuk container agar bisa terhubung ke container lain
     networks: 
       - item-app-net
+    
+    # Memberitahu kepada docker compose agar mejalankan container item-db terlebih dahulu sebelum container item-app 
     depends_on:
       - item-db
-    restart: on-failure
 
+    # Restart container jika container berhenti saat di jalankan 
+    restart: always
+
+# Membuat volume untuk di pasang di container database
 volumes:
+
+  # Volume id
   app-db:
+
+    # Nama volume
     name: app-db
 
+# Membuat network untuk menghubungkan antar container
 networks:
+  
+  # Network id 
   item-app-net:
+    
+    # Nama network 
     name: item-app-net
+
+    # Menentukan driver network
     driver: bridge
