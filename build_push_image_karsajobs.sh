@@ -8,7 +8,7 @@ sudo docker images
 sudo docker tag karsajobs:latest ghcr.io/yogiflogic/karsajobs:latest
 
 # login ke github container registry
-# ketik di terminal "export PASSWORD_DOCKER_HUB=<password_Anda>"
+# ketik di terminal "export $CR_PAT=<password_Anda>"
 echo $CR_PAT | docker login ghcr.io -u yogiflogic --password-stdin
 
 # mengunggah image ke github container registry
