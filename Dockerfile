@@ -12,5 +12,8 @@ COPY . .
 RUN mkdir /build; \
     go build -o /build/ ./...
 
+# Membuat LABEL agar image yang di build bisa di arahkan ke repository di github yang di tuju.
+LABEL org.opencontainers.image.source=https://github.com/yogiflogic/a433-microservices
+
 EXPOSE 8080
 CMD ["/build/web"]
