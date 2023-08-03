@@ -6,6 +6,9 @@ jobs:
          auth:
           username: $DOCKER_HUB_USERNAME
           password: $DOCKER_HUB_PASSWORD
+    
+    environment:
+      DOCKER_HOST: unix:///var/run/docker.sock
  
     steps:
       - checkout
