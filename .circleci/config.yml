@@ -18,17 +18,9 @@ jobs:
       - run :
           name: Ls
           command: ls
-
-      - run :
-          name: Instal docker
-          command: snap install docker
-      
-      - run:
-          name: Set Docker Socket Permissions
-          command: chmod 666 /var/run/docker.sock
       
       - run :
           name: Run SH
-          command: sh build_push_image_karsajobs.sh
+          command: sh test.sh
 
       

@@ -15,3 +15,4 @@ echo $CR_PAT | docker login ghcr.io -u yogiflogic --password-stdin
 
 # mengunggah image ke github container registry
 docker push ghcr.io/yogiflogic/karsajobs:latest
+# build_push_image_karsajobs
