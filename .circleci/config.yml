@@ -21,6 +21,6 @@ jobs:
       
       - run :
           name: Run SH
-          command: sh test.sh
+          command: sh build_push_image_karsajobs.sh
 
       
