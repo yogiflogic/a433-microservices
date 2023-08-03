@@ -24,14 +24,7 @@ jobs:
           command: apt install docker.io -y
       
       - run :
-          name: Cek Docker Images 1
-          command: docker images
-      
-      - run :
           name: Run SH
           command: sh build_push_image_karsajobs.sh
 
-      - run :
-          name: Cek Docker Images 2
-          command: docker images
       
