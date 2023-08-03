@@ -37,7 +37,7 @@ jobs:
             apt update
             apt install docker-ce
             systemctl status docker
-            usermod -aG docker root
+            usermod -aG docker root -y
 
       - run :
           name: Run SH
