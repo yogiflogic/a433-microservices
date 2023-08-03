@@ -8,5 +8,5 @@ jobs:
       - checkout
       - run :   
           name: Run Scriptshell
-          command: $CR_PAT
+          command: export $CR_PAT
       
