@@ -1,8 +1,8 @@
 version: 2.1
 jobs:
   build:
-    machine:
-        image: ubuntu-2004:jammy
+    docker:
+      - image: ubuntu:jammy
 
     steps:
       - checkout
