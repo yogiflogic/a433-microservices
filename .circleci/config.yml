@@ -12,6 +12,10 @@ jobs:
           command: export $CR_PAT
 
       - run :
-          name: Menjalankan Scriptshell
-          command: apt update
+          name: Update & Upgrade APT
+          command: apt update && Upgrade -y
+      
+      - run :
+          name: Update & Upgrade APT
+          command: ls
       
