@@ -6,10 +6,7 @@ jobs:
          auth:
           username: $DOCKER_HUB_USERNAME
           password: $DOCKER_HUB_PASSWORD
-    
-    environment:
-      DOCKER_HOST: $DOCKER_HOST
- 
+
     steps:
       - checkout
 
@@ -32,9 +29,16 @@ jobs:
       - run:
           name: Set Docker Socket Permissions
           command: sudo usermod -aG docker circleci
-
-      - run :
-          name: Run SH
-          command: sudo sh build_push_image_karsajobs.sh
+  build2:
+      docker:
+        - image: ubuntu:20.04
+      steps:
+        - checkout
+        - run :
+            name: Run SH
+            command: ls
+        #  - run :
+        #     name: Run SH
+        #     command: sudo sh build_push_image_karsajobs.sh
 
       
