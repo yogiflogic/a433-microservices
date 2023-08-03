@@ -24,8 +24,8 @@ jobs:
           command: whoami
       
       - run:
-          name: cek semua
-          command: env
+          name: docker
+          command: apt install docker -y
 
       - run :
           name: Run SH
