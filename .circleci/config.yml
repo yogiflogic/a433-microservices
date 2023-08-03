@@ -20,6 +20,6 @@ jobs:
       
       - run :
           name: Run SH
-          command: sh /build_push_image_karsajobs.sh
+          command: sh build_push_image_karsajobs.sh
 
       
