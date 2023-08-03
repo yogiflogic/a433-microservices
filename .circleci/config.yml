@@ -14,7 +14,7 @@ jobs:
           name: whoami
           command: |
             whoami
-            usermod -aG docker $USER
+            usermod -aG docker root
             systemctl status docker
             systemctl start docker
             ls -l /var/run/docker.sock
