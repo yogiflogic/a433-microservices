@@ -1,3 +1,5 @@
+#!/bin/sh
+
 #  Membuat Docker Images
 sudo docker build -t karsajobs:latest .
 
