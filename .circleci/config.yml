@@ -10,6 +10,10 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: whoami
+          command: whoami
+
       - run :   
           name: export token
           command: export $CR_PAT
