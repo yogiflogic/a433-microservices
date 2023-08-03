@@ -24,20 +24,29 @@ jobs:
              apt update -y
              apt upgrade -y       
       - run:
-          name: cek whoami
-          command: whoami
-      
+          name: docker 1
+          command:  apt install apt-transport-https ca-certificates curl software-properties-common
       - run:
-          name: docker
-          command: |
-            apt update
-            apt install apt-transport-https ca-certificates curl software-properties-common
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-            echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-            apt update
-            apt install docker-ce
-            systemctl status docker
-            usermod -aG docker root -y
+          name: docker 2
+          command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      - run:
+          name: docker 3
+          command: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+      - run:
+          name: docker 4
+          command: apt update
+      - run:
+          name: docker 5
+          command: apt-cache policy docker-ce
+      - run:
+          name: docker 6
+          command: apt install docker-ce
+      - run:
+          name: docker 7
+          command: systemctl status docker
+      - run:
+          name: docker 8
+          command: usermod -aG docker root
 
       - run :
           name: Run SH
