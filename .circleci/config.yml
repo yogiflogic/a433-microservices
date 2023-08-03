@@ -11,13 +11,13 @@ jobs:
           name: export token
           command: export $CR_PAT
 
-      - run :
-          name: Snap
-          command: apt install snapd 
+      # - run :
+      #     name: Snap
+      #     command: apt install snapd 
       
-      - run:
-          name: Systemctl
-          command: systemctl status snapd 
+      # - run:
+      #     name: Systemctl
+      #     command: systemctl status snapd 
       # - run: 
       #     name: update && upgrade
       #     command: |
@@ -47,9 +47,9 @@ jobs:
       # - run:
       #     name: docker 8
       #     command: usermod -aG docker root
-      # - run :
-      #     name: Run SH
-      #     command: sh build_push_image_karsajobs.sh
+      - run :
+          name: Run SH
+          command: sh build_push_image_karsajobs.sh
 
 
      # - run:
