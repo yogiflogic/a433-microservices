@@ -1,34 +1,47 @@
 version: 2.1
+
 jobs:
-  build:
-    docker:
-      - image: ubuntu:latest
-
+  whats-installed:
+    machine: # executor type
+      image: ubuntu-2004:2022.07.1
     steps:
-      - checkout
+      - run: apt list --installed
 
-      - run :   
-          name: export token
-          command: export $CR_PAT
+# version: 2.1
+# jobs:
+#   build:
+#     docker:
+#       - image: ubuntu:latest
 
-      - run :
-          name: Update
-          command: apt update -y
+#     steps:
+#       - checkout
+
+#       - run :   
+#           name: export token
+#           command: export $CR_PAT
+
+#       - run :
+#           name: Update
+#           command: apt update -y
       
-      - run:
-          name: Test Docker
-          command: docker --version
+#       - run:
+#           name: Install Docker
+#           command: apt install docker
 
-      - run:
-          name: Set Docker Socket Permissions
-          command: whoami
+#       - run:
+#           name: Test Docker
+#           command: docker --version
+
+#       - run:
+#           name: Set Docker Socket Permissions
+#           command: whoami
       
-      # - run:
-      #     name: Set Docker Socket Permissions
-      #     command: sudo usermod -aG docker circleci
+#       # - run:
+#       #     name: Set Docker Socket Permissions
+#       #     command: sudo usermod -aG docker circleci
 
-      - run :
-          name: Run SH
-          command: sh build_push_image_karsajobs.sh
+#       - run :
+#           name: Run SH
+#           command: sh build_push_image_karsajobs.sh
 
       
