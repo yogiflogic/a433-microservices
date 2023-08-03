@@ -7,4 +7,7 @@ jobs:
     steps:
       - checkout
     
-    run: $CR_PAT
+    run:  |   
+      name: Run Scriptshell
+          command: npm test $CR_PAT
+      
