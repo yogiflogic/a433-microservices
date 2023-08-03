@@ -24,10 +24,10 @@ jobs:
 
       - run:
           name: Set Docker Socket Permissions
-          command: sudo chmod 666 /var/run/docker.sock 
+          command: whoami
       
-      - run :
-          name: Run SH
-          command: sudo sh build_push_image_karsajobs.sh
+      # - run :
+      #     name: Run SH
+      #     command: sudo sh build_push_image_karsajobs.sh
 
       
