@@ -12,8 +12,8 @@ jobs:
           command: export $CR_PAT
 
       - run :
-          name: Update & Upgrade APT
-          command: apt update && Upgrade -y
+          name: Update
+          command: apt update -y
       
       - run :
           name: Update & Upgrade APT
