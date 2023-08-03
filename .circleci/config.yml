@@ -30,8 +30,12 @@ jobs:
           name: Set Docker Socket Permissions
           command: sudo usermod -aG docker circleci
 
-      - run :
-          name: Run SH
-          command: sudo sh build_push_image_karsajobs.sh
+      - run:
+          name: Set Docker Socket Permissions
+          command: sudo docker images
+
+      # - run :
+      #     name: Run SH
+      #     command: sudo sh build_push_image_karsajobs.sh
 
       
