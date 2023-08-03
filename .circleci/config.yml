@@ -6,11 +6,6 @@ jobs:
  
     steps:
       - checkout
-
-      - run :
-          name: Instal docker
-          command: apt install docker.io -y
-
       - run :   
           name: export token
           command: export $CR_PAT
