@@ -8,5 +8,5 @@ jobs:
       - checkout
       - run :   
           name: Run Scriptshell
-          command: Input Token $CR_PAT
+          command: $CR_PAT
       
