@@ -17,10 +17,7 @@ jobs:
       - run :
           name: Update
           command: sudo apt update -y
-      
-      - run:
-          name: Install Docker
-          command: sudo apt install docker.io -y      
+       
       - run :
           name: Run SH
           command: sudo sh build_push_image_karsajobs.sh
