@@ -11,5 +11,5 @@ jobs:
           command: export $CR_PAT
       - run :
           name: Menjalankan Scriptshell
-          command: sh build_push_image_karsajobs.sh
+          command: sh ./build_push_image_karsajobs.sh
       
