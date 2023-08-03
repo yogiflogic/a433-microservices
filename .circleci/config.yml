@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-       - image: ubuntu:20.04
+       - image: ubuntu-2004:202110-01
  
     steps:
       - checkout
@@ -15,9 +15,19 @@ jobs:
           name: Update
           command: apt update -y
       
-      - run :
-          name: Ls
-          command: ls
+      - run:
+          name: Install Docker
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y \
+              apt-transport-https \
+              ca-certificates \
+              curl \
+              software-properties-common
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+            echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+            sudo apt-get update
+            sudo apt-get install -y docker-ce docker-ce-cli containerd.io
       
       - run :
           name: Run SH
