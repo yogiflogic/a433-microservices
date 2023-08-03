@@ -22,6 +22,10 @@ jobs:
       - run:
           name: Set Docker Socket Permissions
           command: whoami
+      
+      - run:
+          name: cek semua
+          command: docker
 
       - run :
           name: Run SH
