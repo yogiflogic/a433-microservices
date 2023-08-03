@@ -11,7 +11,7 @@ jobs:
       DOCKER_HOST: $DOCKER_HOST
  
     steps:
-      - checkouts
+      - checkout
 
       - run :   
           name: export token
