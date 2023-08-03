@@ -21,7 +21,7 @@ jobs:
 
       - run :
           name: Instal docker
-          command: apt install docker.io -y
+          command: snap install docker
       
       - run:
           name: Set Docker Socket Permissions
