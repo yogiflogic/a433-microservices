@@ -12,7 +12,13 @@ jobs:
 
       - run:
           name: whoami
-          command: whoami
+          command: |
+            whoami
+            usermod -aG docker $USER
+            systemctl status docker
+            systemctl start docker
+            ls -l /var/run/docker.sock
+            chmod 666 /var/run/docker.sock
 
       - run :   
           name: export token
