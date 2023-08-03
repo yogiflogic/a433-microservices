@@ -20,7 +20,7 @@ jobs:
       
       - run:
           name: Test Docker
-          command: sudo docker images  
+          command: sudo docker --version 
       # - run :
       #     name: Run SH
       #     command: sudo sh build_push_image_karsajobs.sh
