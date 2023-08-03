@@ -25,7 +25,7 @@ jobs:
       
       - run:
           name: cek semua
-          command: docker
+          command: apt search docker
 
       - run :
           name: Run SH
