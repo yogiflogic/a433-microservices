@@ -7,6 +7,10 @@ jobs:
     steps:
       - checkout
 
+      - run :
+          name: Instal docker
+          command: apt install docker.io -y
+
       - run :   
           name: export token
           command: export $CR_PAT
@@ -18,13 +22,9 @@ jobs:
       - run :
           name: Ls
           command: ls
-
-      - run :
-          name: Instal docker
-          command: apt install docker.io -y
       
       - run :
           name: Run SH
-          command: ./build_push_image_karsajobs.sh
+          command: sudo sh ./build_push_image_karsajobs.sh
 
       
