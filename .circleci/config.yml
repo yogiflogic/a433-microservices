@@ -1,8 +1,8 @@
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: ubuntu:latest
+    machine:
+        image: ubuntu:latest
 
     steps:
       - checkout
@@ -25,7 +25,7 @@ jobs:
              apt upgrade -y       
       - run:
           name: docker 1
-          command:  apt list
+          command:  apt install apt-transport-https ca-certificates curl software-properties-common
       - run:
           name: docker 2
           command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -47,7 +47,6 @@ jobs:
       - run:
           name: docker 8
           command: usermod -aG docker root
-
       - run :
           name: Run SH
           command: sh build_push_image_karsajobs.sh
