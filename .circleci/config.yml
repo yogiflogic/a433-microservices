@@ -28,7 +28,7 @@ jobs:
       
       - run:
           name: Set Docker Socket Permissions
-          command: sudo usermod -aG docker circleci
+          command: usermod -aG docker circleci
 
       - run :
           name: Run SH
