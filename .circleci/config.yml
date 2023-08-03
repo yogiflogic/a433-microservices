@@ -1,47 +1,35 @@
 version: 2.1
-
 jobs:
-  whats-installed:
-    machine: # executor type
-      image: ubuntu:20.04
+  build:
+    docker:
+      - image: ubuntu:latest
+
     steps:
-      - run: ls
+      - checkout
 
-# version: 2.1
-# jobs:
-#   build:
-#     docker:
-#       - image: ubuntu:latest
+      - run :   
+          name: export token
+          command: export $CR_PAT
 
-#     steps:
-#       - checkout
-
-#       - run :   
-#           name: export token
-#           command: export $CR_PAT
-
-#       - run :
-#           name: Update
-#           command: apt update -y
+      # - run :
+      #     name: Update
+      #     command: apt update -y
       
-#       - run:
-#           name: Install Docker
-#           command: apt install docker
+      # - run:
+      #     name: Test Docker
+      #     command: docker --version
 
-#       - run:
-#           name: Test Docker
-#           command: docker --version
+      - run:
+          name: Set Docker Socket Permissions
+          command: whoami
 
-#       - run:
-#           name: Set Docker Socket Permissions
-#           command: whoami
-      
-#       # - run:
-#       #     name: Set Docker Socket Permissions
-#       #     command: sudo usermod -aG docker circleci
+      - run :
+          name: Run SH
+          command: sh build_push_image_karsajobs.sh
 
-#       - run :
-#           name: Run SH
-#           command: sh build_push_image_karsajobs.sh
+
+     # - run:
+      #     name: Set Docker Socket Permissions
+      #     command: sudo usermod -aG docker circleci
 
       
