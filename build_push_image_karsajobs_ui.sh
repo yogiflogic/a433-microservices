@@ -2,7 +2,7 @@
 docker build -t karsajobs-ui:latest .
 
 # Melihat list docker images di local
-sudo docker images
+docker images
 
 # Mengubah nama image sesuai dengan repsitory di GitHub Packages
 sudo docker tag karsajobs-ui:latest ghcr.io/yogiflogic/karsajobs-ui:latest
