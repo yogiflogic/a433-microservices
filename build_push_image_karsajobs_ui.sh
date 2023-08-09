@@ -1,5 +1,5 @@
 #  Membuat Docker Images
-sudo docker build -t karsajobs-ui:latest .
+docker build -t karsajobs-ui:latest .
 
 # Melihat list docker images di local
 sudo docker images
@@ -12,4 +12,4 @@ sudo docker tag karsajobs-ui:latest ghcr.io/yogiflogic/karsajobs-ui:latest
 echo $CR_PAT | docker login ghcr.io -u yogiflogic --password-stdin
 
 # mengunggah image ke github container registry
-sudo docker push ghcr.io/yogiflogic/karsajobs-ui:latest
+docker push ghcr.io/yogiflogic/karsajobs-ui:latest
