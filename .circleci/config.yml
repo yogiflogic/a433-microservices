@@ -29,6 +29,21 @@ jobs:
           name: Go Test
           command: go test -v -short --count=1 $(go list ./...)
 
+  build-app-karsajobs:
+    working_directory: /app
+    docker:
+      - image: yogiflogic/ubuntu-with-docker:v1
+        auth:
+          username: $DOCKER_HUB_USERNAME
+          password: $DOCKER_HUB_PASSWORD
+
+    steps:
+      - checkout
+
+      - run:
+              name: Run SH
+              command: sh build_push_image_karsajobs.sh
+
 workflows:
   build_and_test:
     jobs:
@@ -36,6 +51,9 @@ workflows:
       - test_app:
           requires:
             - lint_dockerfile_hadolint
+      - build-app-karsajobs:
+          requires:
+            - test_app
 
 #      - run:
 #          name: Install Go
