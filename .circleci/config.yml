@@ -22,9 +22,15 @@ jobs:
             apt install wget -y
             wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
             chmod +x /bin/hadolint
+  test_app:
+    working_directory: /test
+    docker:
+      - image: cimg/go:1.21-browsers
+    steps:
+      - checkout
       - run:
-          name: Lint Dockerfile with Hadolint
-          command: /bin/hadolint Dockerfile
+          name: Go Test
+          command: go test -v -short --count=1 $(go list ./...)
 
 #      - run:
 #          name: Install Go
@@ -37,21 +43,18 @@ jobs:
 #          name: Test APP Go
 #          command: go test -v -short --count=1 $(go list ./...)
 
-      - run:
-          name: dcoker Link Socket
-          command: docker run -it -v /var/run/docker.sock:/var/run/docker.sock ubuntu-with-docker
 
 #      - run:
 #          name: Run Container with Docker Socket
 #          command: socat TCP-LISTEN:2375,fork UNIX-CONNECT:/var/run/docker.sock &
-
-      - run:
-          name: Docker
-          command: |
-            pwd
-            whoami
-            docker container ls -a
-            docker images -a
+#
+#      - run:
+#          name: Docker
+#          command: |
+#            pwd
+#            whoami
+#            docker container ls -a
+#            docker images -a
 
 #      - run :
 #          name: export token
