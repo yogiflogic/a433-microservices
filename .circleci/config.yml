@@ -1,7 +1,7 @@
 #!/bin/sh
 version: 2.1
 jobs:
-  build:
+  lint_dockerfile_hadolint:
     working_directory: /app
     docker:
        - image: yogiflogic/ubuntu-with-docker:v1
@@ -29,13 +29,13 @@ jobs:
           name: Go Test
           command: go test -v -short --count=1 $(go list ./...)
 
-  workflows:
-    build_and_test:
-      jobs:
-        - build
-        - test_app:
-            requires:
-              - test_hadolint
+workflows:
+  build_and_test:
+    jobs:
+      - lint_dockerfile_hadolint
+      - test_app:
+          requires:
+            - lint_dockerfile_hadolint
 
 #      - run:
 #          name: Install Go
