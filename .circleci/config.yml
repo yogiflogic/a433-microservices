@@ -1,0 +1,41 @@
+version: 2.1
+jobs:
+  lint_dockerfile:
+    working_directory: /app
+    docker:
+      - image: yogiflogic/ubuntu-with-docker:v1
+        auth:
+          username: $DOCKER_HUB_USERNAME
+          password: $DOCKER_HUB_PASSWORD
+
+    steps:
+      - checkout
+      - run:
+          name: Install Hadolint
+          command: |
+            apt install wget -y
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
+            chmod +x /bin/hadolint
+
+  build_app_karsajobs_ui:
+    working_directory: /app
+    docker:
+      - image: docker:24.0.5-alpine3.18
+
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Run SH
+          command: |
+            export $CR_PAT
+            sh ./build_push_image_karsajobs.sh
+
+workflows:
+  build_test_&_deploy_ui:
+    jobs:
+      - lint_dockerfile
+      - build_app_karsajobs_ui:
+          requires:
+            - lint_dockerfile
+
