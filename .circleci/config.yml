@@ -43,7 +43,7 @@ jobs:
             export $CR_PAT
             sh ./build_push_image_karsajobs.sh
 
-workflows
+workflows:
   build_and_test:
     jobs:
       - lint_dockerfile
