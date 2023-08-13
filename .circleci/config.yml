@@ -1,7 +1,7 @@
 #!/bin/sh
 version: 2.1
 jobs:
-  lint-dockerfile :
+  lint_dockerfile :
     working_directory: /app
     docker:
        - image: yogiflogic/ubuntu-with-docker:v1
@@ -19,7 +19,7 @@ jobs:
             wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
             chmod +x /bin/hadolint
 
-  test-app:
+  test_app:
     working_directory: ~/test
     docker:
       - image: cimg/go:1.21-browsers
@@ -29,7 +29,7 @@ jobs:
           name: Go Test
           command: go test -v -short --count=1 $(go list ./...)
 
-  build-app-karsajobs:
+  build_app_karsajobs:
     working_directory: /app
     docker:
       - image: docker:latest
