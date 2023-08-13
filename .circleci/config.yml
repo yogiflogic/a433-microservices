@@ -1,7 +1,7 @@
 #!/bin/sh
 version: 2.1
 jobs:
-  build:
+  lint_dockerfile:
     docker:
        - image: yogiflogic/ubuntu-with-docker:v1
          auth:
@@ -24,6 +24,14 @@ jobs:
       - run:
           name: Lint Dockerfile with Hadolint
           command: /bin/hadolint Dockerfile
+
+      - run:
+          name: Docker
+          command: |
+            pwd
+            whoami
+            docker container ls -a
+            docker images -a
 
 #      - run:
 #          name: Install Go
