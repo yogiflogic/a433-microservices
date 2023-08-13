@@ -29,7 +29,7 @@ jobs:
           name: Run SH
           command: |
             export $CR_PAT
-            sh ./build_push_image_karsajobs.sh
+            sh ./build_push_image_karsajobs_ui.sh
 
 workflows:
   build_test_&_deploy_ui:
