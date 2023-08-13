@@ -3,13 +3,17 @@ version: 2.1
 jobs:
   build:
     docker:
-       - image: ubuntu:latest
+       - image: yogiflogic/ubuntu-with-docker
          auth:
           username: $DOCKER_HUB_USERNAME
           password: $DOCKER_HUB_PASSWORD
 
     steps:
       - checkout
+
+      - run:
+          name: Cek Docker Version
+          command: docker version
 
       - run:
           name: Install Hadolint
