@@ -39,7 +39,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Run SH
-          command: ./build_push_image_karsajobs.sh
+          command: sh ./build_push_image_karsajobs.sh
 
 workflows:
   build_and_test:
@@ -51,37 +51,5 @@ workflows:
       - build_app_karsajobs:
           requires:
             - test_app
-
-#      - run:
-#          name: Install Go
-#          command: |
-#            rm -rf /usr/local/go && tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz
-#            export PATH=$PATH:/usr/local/go/bin
-#            go version
-
-#      - run:
-#          name: Test APP Go
-#          command: go test -v -short --count=1 $(go list ./...)
-
-
-#      - run:
-#          name: Run Container with Docker Socket
-#          command: socat TCP-LISTEN:2375,fork UNIX-CONNECT:/var/run/docker.sock &
-#
-#      - run:
-#          name: Docker
-#          command: |
-#            pwd
-#            whoami
-#            docker container ls -a
-#            docker images -a
-
-#      - run :
-#          name: export token
-#          command: export $CR_PAT
-#
-#      - run :
-#          name: Run SH
-#          command: sh build_push_image_karsajobs.sh
 
       
