@@ -1,3 +1,4 @@
+#!/bin/sh
 #  Membuat Docker Images
 docker build -t karsajobs-ui:latest .
 
@@ -5,7 +6,7 @@ docker build -t karsajobs-ui:latest .
 docker images
 
 # Mengubah nama image sesuai dengan repsitory di GitHub Packages
-sudo docker tag karsajobs-ui:latest ghcr.io/yogiflogic/karsajobs-ui:latest
+docker tag karsajobs-ui:latest ghcr.io/yogiflogic/karsajobs-ui:latest
 
 # login ke github container registry
 # ketik di terminal "export CR_PAT=YOUR_TOKEN"
