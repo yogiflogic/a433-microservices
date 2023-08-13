@@ -39,7 +39,9 @@ jobs:
       - setup_remote_docker
       - run:
           name: Run SH
-          command: sh ./build_push_image_karsajobs.sh
+          command: |
+            export $CR_PAT
+            sh ./build_push_image_karsajobs.sh
 
 workflows:
   build_and_test:
