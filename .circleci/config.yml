@@ -32,7 +32,7 @@ jobs:
   build-app-karsajobs:
     working_directory: /app
     docker:
-      - image: yogiflogic/ubuntu-with-docker:v1
+      - image: cimg/deploy
         auth:
           username: $DOCKER_HUB_USERNAME
           password: $DOCKER_HUB_PASSWORD
