@@ -25,14 +25,6 @@ jobs:
           name: Lint Dockerfile with Hadolint
           command: /bin/hadolint Dockerfile
 
-      - run:
-          name: Docker
-          command: |
-            pwd
-            whoami
-            docker container ls -a
-            docker images -a
-
 #      - run:
 #          name: Install Go
 #          command: |
@@ -44,13 +36,21 @@ jobs:
 #          name: Test APP Go
 #          command: go test -v -short --count=1 $(go list ./...)
 
-#      - run:
-#          name: Install socat
-#          command: apt-get update && apt-get install -y socat
-#
-#      - run:
-#          name: Run Container with Docker Socket
-#          command: socat TCP-LISTEN:2375,fork UNIX-CONNECT:/var/run/docker.sock &
+      - run:
+          name: Install socat
+          command: apt-get update && apt-get install -y socat
+
+      - run:
+          name: Run Container with Docker Socket
+          command: socat TCP-LISTEN:2375,fork UNIX-CONNECT:/var/run/docker.sock &
+
+      - run:
+          name: Docker
+          command: |
+            pwd
+            whoami
+            docker container ls -a
+            docker images -a
 
 #      - run :
 #          name: export token
