@@ -12,6 +12,10 @@ jobs:
       - checkout
 
       - run :   
+          name: share socker docker
+          command: docker run -it -v /var/run/docker.sock:/var/run/docker.sock ubuntu-with-docker
+
+      - run :
           name: export token
           command: export $CR_PAT
 
