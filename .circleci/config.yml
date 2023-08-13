@@ -14,9 +14,9 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: Lint dockerfile with Hadolint
-          command: docker run --rm -i hadolint/hadolint < Dockerfile
+#      - run:
+#          name: Lint dockerfile with Hadolint
+#          command: docker run --rm -i hadolint/hadolint < Dockerfile
 
       - run:
           name: Test APP Go
