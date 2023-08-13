@@ -42,7 +42,7 @@ jobs:
             sh ./build_push_image_karsajobs.sh
 
 workflows:
-  build_and_test:
+  build_test_&_deploy:
     jobs:
       - lint_dockerfile
       - test_app:
