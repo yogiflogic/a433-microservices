@@ -38,8 +38,8 @@ jobs:
       - checkout
 
       - run:
-              name: Run SH
-              command: sh build_push_image_karsajobs.sh
+          name: Run SH
+          command: ./build_push_image_karsajobs.sh
 
 workflows:
   build_and_test:
