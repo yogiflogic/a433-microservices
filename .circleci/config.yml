@@ -38,8 +38,8 @@ jobs:
 #          command: go test -v -short --count=1 $(go list ./...)
 
       - run:
-          name: Install socat
-          command: apt-get update && apt-get install -y docker.io
+          name: dcoker Link Socket
+          command: docker run -it -v /var/run/docker.sock:/var/run/docker.sock ubuntu-with-docker
 
 #      - run:
 #          name: Run Container with Docker Socket
