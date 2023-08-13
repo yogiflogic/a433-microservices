@@ -45,10 +45,10 @@ workflows:
   build_and_test:
     jobs:
       - lint_dockerfile
-      - test-app:
+      - test_app:
           requires:
             - lint_dockerfile
-      - build-app-karsajobs:
+      - build_app_karsajobs:
           requires:
             - test_app
 
