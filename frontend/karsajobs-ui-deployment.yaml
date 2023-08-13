@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-tier
+  namespace: dicoding-ns
+  labels:
+    app: frontend-app
+    tier: frontend-tier
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-app
+      tier: frontend-tier
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+        tier: frontend-tier
+    spec:
+      containers:
+        - name: frontend-container
+          image: ghcr.io/yogiflogic/karsajobs-ui:latest
+          ports:
+            - containerPort: 8000
+#          resources:
+#            requests:
+#              memory: "256Mi"
+#              cpu: 200m
+#          limits:
+#            memory: "1Gi"
+#            cpu: "999m"
