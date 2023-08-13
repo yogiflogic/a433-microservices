@@ -29,6 +29,14 @@ jobs:
           name: Go Test
           command: go test -v -short --count=1 $(go list ./...)
 
+  workflows:
+    build_and_test:
+      jobs:
+        - build
+        - test_app:
+            requires:
+              - test_hadolint
+
 #      - run:
 #          name: Install Go
 #          command: |
