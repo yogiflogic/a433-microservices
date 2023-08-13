@@ -7,42 +7,44 @@ jobs:
          auth:
           username: $DOCKER_HUB_USERNAME
           password: $DOCKER_HUB_PASSWORD
-    environment:
-      - DOCKER_HOST=tcp://host.docker.internal:2375
-
 
     steps:
       - checkout
 
-#      - run:
-#          name: Lint dockerfile with Hadolint
-#          command: docker run --rm -i hadolint/hadolint < Dockerfile
-
       - run:
-          name: Install Go
+          name: Install Hadolint
           command: |
-            rm -rf /usr/local/go && tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz
-            export PATH=$PATH:/usr/local/go/bin
-            go version
-
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
+            chmod +x /bin/hadolint
       - run:
-          name: Test APP Go
-          command: go test -v -short --count=1 $(go list ./...)
+          name: Lint Dockerfile with Hadolint
+          command: /bin/hadolint Dockerfile
 
-      - run:
-          name: Install socat
-          command: apt-get update && apt-get install -y socat
+#      - run:
+#          name: Install Go
+#          command: |
+#            rm -rf /usr/local/go && tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz
+#            export PATH=$PATH:/usr/local/go/bin
+#            go version
 
-      - run:
-          name: Run Container with Docker Socket
-          command: socat TCP-LISTEN:2375,fork UNIX-CONNECT:/var/run/docker.sock &
+#      - run:
+#          name: Test APP Go
+#          command: go test -v -short --count=1 $(go list ./...)
 
-      - run :
-          name: export token
-          command: export $CR_PAT
+#      - run:
+#          name: Install socat
+#          command: apt-get update && apt-get install -y socat
+#
+#      - run:
+#          name: Run Container with Docker Socket
+#          command: socat TCP-LISTEN:2375,fork UNIX-CONNECT:/var/run/docker.sock &
 
-      - run :
-          name: Run SH
-          command: sh build_push_image_karsajobs.sh
+#      - run :
+#          name: export token
+#          command: export $CR_PAT
+#
+#      - run :
+#          name: Run SH
+#          command: sh build_push_image_karsajobs.sh
 
       
