@@ -20,7 +20,7 @@ jobs:
             chmod +x /bin/hadolint
 
   test_app:
-    working_directory: /test
+    working_directory: ~/test
     docker:
       - image: cimg/go:1.21-browsers
     steps:
