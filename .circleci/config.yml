@@ -44,10 +44,10 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - lint_dockerfile_hadolint
-      - test_app:
+      - lint-dockerfile
+      - test-app:
           requires:
-            - lint_dockerfile_hadolint
+            - lint-dockerfile
       - build-app-karsajobs:
           requires:
             - test_app
