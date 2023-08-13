@@ -11,9 +11,9 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: Cek Docker Version
-          command: docker version
+#      - run:
+#          name: Cek Docker Version
+#          command: docker version
 
       - run:
           name: Install Hadolint
