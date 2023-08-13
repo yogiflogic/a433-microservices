@@ -32,7 +32,7 @@ jobs:
   build_app_karsajobs:
     working_directory: /app
     docker:
-      - image: docker:latest
+      - image: docker:24.0.5-alpine3.18
 
     steps:
       - checkout
