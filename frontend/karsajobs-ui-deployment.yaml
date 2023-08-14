@@ -1,26 +1,53 @@
+#versi api yang digunakan pada pada manifest k8s
 apiVersion: apps/v1
+
+#mendefinisikan jenis object k8s deployment
 kind: Deployment
+
+#metadata untuk deployment berupa key & value
 metadata:
   name: frontend-tier
   namespace: dicoding-ns
   labels:
     app: frontend-app
     tier: frontend-tier
+
+#medefenisi spesifikasi deployment yang akan di buat seperti
+#selector , dan template yang berisi container untuk deployment
 spec:
+
+  #medefinisikan jumlah pod yang akan di buat
   replicas: 2
+
+  #selector untuk terhubung dari object service dan label pada tempalate container
   selector:
     matchLabels:
       app: frontend-app
       tier: frontend-tier
+
+  #template yang berisi spesifikasi untuk container di dalam pod deployment
   template:
+
+    #metadata untuk tempalte container berupa key & value yang di terhubung
+    #dengan mathc label/ selector dari deployment
     metadata:
       labels:
         app: frontend-app
         tier: frontend-tier
+
+    # medefinisikan spesifikasi container di dalam pod deployment
     spec:
+
+      #medefinisikan spesifikasi container
       containers:
+
+        #nama container
         - name: frontend-container
+
+          #image container
           image: ghcr.io/yogiflogic/karsajobs-ui:latest
+
+          #medefinisikan port image karsajobs-ui
           ports:
             - containerPort: 8000
 #          resources:

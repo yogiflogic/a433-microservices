@@ -1,38 +1,75 @@
+#versi api yang digunakan pada pada manifest k8s
 apiVersion: apps/v1
+
+#mendefinisikan jenis object k8s statefulset
 kind: StatefulSet
+
+#metadata untuk statefulset key & value
 metadata:
   name: mongodb
   labels:
     app: mongodb-label
+
+#medefenisi spesifikasi statefulset yang akan di buat seperti
+#name service, selector , dan template yang berisi container untuk statefulset
 spec:
+  #nama service
   serviceName: mongodb
+
+  #selector untuk terhubung dari object service dan label pada tempalate container
   selector:
     matchLabels:
       app: mongodb
       tier: mongodb-tier
+
+  #medefinisikan jumlah pod yang akan di buat
   replicas: 1
+
+  #medefinisikan minimal waktu yang di butuhkan untuk siap memulai pod
   minReadySeconds: 30
+
+  #template yang berisi spesifikasi untuk container di dalam pod statefulset
   template:
+
+    #metadata untuk tempalte container berupa key & value yang di terhubung
+    #dengan mathc label/ selector dari statefulset
     metadata:
       labels:
         app: mongodb
         tier: mongodb-tier
+
+    # medefinisikan spesifikasi container di dalam pod statefulset
     spec:
+
+      # medefinisikan masa tenggang dalam periode detik
       terminationGracePeriodSeconds: 30
+
+      #medefinisikan spesifikasi container
       containers:
+        #image container
         - image: mongo:3
+
+          #nama container
           name: mongodb
+
+          #mendapatkan/mengambil data env dari object secret
           envFrom:
             - secretRef:
                 name: mongodb-secret
+
+          #medefinisikan env yang di butuhkan database dari image mongodb
           env:
             - name: MONGO_INITDB_ROOT_USERNAME_FILE
               value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
             - name: MONGO_INITDB_ROOT_PASSWORD_FILE
               value:  /etc/mongo-credentials/MONGO_ROOT_PASSWORD
+
+          #medefinisikan port dan nama port dari image mongodb
           ports:
             - containerPort: 27017
               name: mongodb
+
+          #mounting volume , ini hasil claim dari PVC
           volumeMounts:
             - name: mongodb-persistent-storage
               mountPath: /data/db
@@ -42,16 +79,24 @@ spec:
               mountPath: /etc/mongo-credentials
               readOnly: true
 
+      #medefinisikan PVC yang sudah di claim dari PV untuk di mounting/
+      #di masukan ke container pada volume mounts
       volumes:
+
+        #medefinisikan data dari object PVC
         - name: mongodb-persistent-storage
           persistentVolumeClaim:
             claimName: mongodb-pv-claim
+
+        #medefinisikan data untuk volume mounts dari object configmap
         - name: config-volume
           configMap:
             name: mongodb-config
             items:
               - key: mongo.conf
                 path: mongo.conf
+
+        #medefinisikan data untuk volume mounts dari object secret
         - name: secret-volume
           secret:
             secretName: mongodb-secret

@@ -1,7 +1,14 @@
+#versi api yang digunakan pada manifest k8s
 apiVersion: v1
+
+#mendefinisikan jenis object k8s configmap
 kind: ConfigMap
+
+#metadata untuk configmap berisi key & value
 metadata:
   name: mongodb-config
+
+# konfgurasi letak path configmap pada volume storage
 data:
   #  string multiline (ditandai dengan “|”)
   mongo.conf: |

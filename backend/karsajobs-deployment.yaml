@@ -1,29 +1,59 @@
+#versi api yang digunakan pada pada manifest k8s
 apiVersion: apps/v1
+
+#mendefinisikan jenis object k8s deployment
 kind: Deployment
+
+#metadata untuk deployment berupa key & value
 metadata:
   name: backend-tier
   namespace: dicoding-ns
   labels:
     app: backend-app
     tier: backend-tier
+
+#medefenisi spesifikasi deployment yang akan di buat seperti
+#selector , dan template yang berisi container untuk deployment
 spec:
+
+  #medefinisikan jumlah pod yang akan di buat
   replicas: 2
+
+  #selector untuk terhubung dari object service dan label pada tempalate container
   selector:
     matchLabels:
       app: backend-app
       tier: backend-tier
+
+  #template yang berisi spesifikasi untuk container di dalam pod deployment
   template:
+
+    #metadata untuk tempalte container berupa key & value yang di terhubung
+    #dengan mathc label/ selector dari deployment
     metadata:
       labels:
         app: backend-app
         tier: backend-tier
+
+    # medefinisikan spesifikasi container di dalam pod deployment
     spec:
+
+      #medefinisikan spesifikasi container
       containers:
+
+        #nama container
         - name: backend-container
+
+          #image container
           image: ghcr.io/yogiflogic/karsajobs:latest
+
+          #medefinisikan port dan nama port dari image karsajobs
           ports:
             - containerPort: 8080
               name: backendport
+
+          #medefinisikan jumlah resource max & min hardware yang di minta seperti
+          #cpu, ram dll
           resources:
             requests:
               memory: "512Mi"
@@ -31,6 +61,8 @@ spec:
             limits:
               memory: "1Gi"
               cpu: "999m"
+
+          #medefinisikan env yang di butuhkan dari volume/PVC database mongodb
           env:
             - name: APP_PORT
               value: "8080"

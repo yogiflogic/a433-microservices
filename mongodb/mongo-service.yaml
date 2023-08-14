@@ -1,9 +1,17 @@
+#versi api yang digunakan pada pada manifest k8s
 apiVersion: v1
+
+#mendefinisikan jenis object k8s service
 kind: Service
+
+#metadata untuk service berisi key & value
 metadata:
   name: mongodb
   labels:
     app: mongodb-service-label
+
+#medefenisi spesifikasi service yang akan di buat seperti
+# port/protocol/target port, cluster IP , selector/ object yang di pilih / object yang di tuju dll
 spec:
   ports:
     - protocol: TCP
