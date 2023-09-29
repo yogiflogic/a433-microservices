@@ -1,0 +1,172 @@
+#versi api yang digunakan pada pada manifest k8s
+apiVersion: v1
+
+#mendefinisikan jenis object k8s service
+kind: Service
+
+#metadata untuk service berisi key & value
+metadata:
+  name: rabbitmq
+
+#medefenisi spesifikasi service yang akan di buat seperti
+# port/protocol/target port, cluster IP , selector/ object yang di pilih / object yang di tuju dll
+spec:
+  type: NodePort
+  ports:
+    - name: amqp
+      port: 5672
+    - name: management
+      port: 15672
+  selector:
+    app: rabbitmq
+---
+#versi api yang digunakan pada pada manifest k8s
+apiVersion: v1
+
+#mendefinisikan jenis object k8s service account
+kind: ServiceAccount
+
+#metadata untuk service account berisi key & value
+metadata:
+  name: rabbitmq
+  labels:
+    account: rabbitmq
+---
+#versi api yang digunakan pada manifest k8s
+apiVersion: v1
+
+#mendefinisikan jenis object k8s persistent volume
+kind: PersistentVolume
+
+#metadata untuk persistent volume berisi key & value
+metadata:
+  name: rabbitmq-pv-data
+  labels:
+    type: local
+    app: rabbitmq-data
+
+#medefenisi spesifikasi PV yang akan di buat seperti
+#kapasitas, access modes , storage , host path dll
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mount/rabbitmq/data"
+---
+#versi api yang digunakan pada manifest k8s
+apiVersion: v1
+
+#mendefinisikan jenis object k8s persistent volume claim
+kind: PersistentVolumeClaim
+
+#metadata untuk persistent volume claim berisi key & value
+metadata:
+  name: rabbitmq-pvc-data
+  labels:
+    app: rabbitmq-data
+
+#medefenisi spesifikasi PVC yang akan di buat seperti
+#access modes, selector ke app , storage dll
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      app: rabbitmq-data
+---
+#versi api yang digunakan pada pada manifest k8s
+apiVersion: apps/v1
+
+#mendefinisikan jenis object k8s statefulset
+kind: StatefulSet
+
+#metadata untuk statefulset key & value
+metadata:
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+
+#medefenisi spesifikasi statefulset yang akan di buat seperti
+#name service, selector , dan template yang berisi container untuk statefulset
+spec:
+
+  #selector untuk terhubung dari object service dan label pada tempalate container
+  selector:
+    matchLabels:
+      app: rabbitmq
+
+  #nama service
+  serviceName: rabbitmq
+
+  #medefinisikan jumlah pod yang akan di buat
+  replicas: 1
+
+  #medefinisikan waktu tunggu minimal
+  minReadySeconds: 10
+
+  #template yang berisi spesifikasi untuk container di dalam pod statefulset
+  template:
+
+    #metadata untuk tempalte container berupa key & value yang terhubung
+    #dengan mathc label/ selector dari statefulset
+    metadata:
+      labels:
+        app: rabbitmq
+
+    # medefinisikan spesifikasi container di dalam pod statefulset
+    spec:
+
+      # medefinisikan masa tenggang dalam periode detik
+      terminationGracePeriodSeconds: 10
+      serviceAccountName:
+      containers:
+
+        #image rabbitmq
+        - image: rabbitmq:3.11-management-alpine
+          name: rabbitmq
+          ports:
+
+            # export port container
+            - containerPort: 5672
+              name: amqp
+
+            # export port container
+            - containerPort: 15672
+              name: management
+
+          #mounting volume , ini hasil claim dari PVC
+          volumeMounts:
+            - name: rabbitmq-data
+              mountPath: /var/lib/rabbitmq/
+
+          #cek status health
+          livenessProbe:
+            exec:
+              command: ["rabbitmq-diagnostics", "status"]
+            initialDelaySeconds: 60
+            periodSeconds: 60
+            timeoutSeconds: 15
+
+          #cek untuk mengetahui kapan RMQ siap menerima trafic
+          readinessProbe:
+            exec:
+              command: ["rabbitmq-diagnostics", "ping"]
+            initialDelaySeconds: 60
+            periodSeconds: 60
+            timeoutSeconds: 15
+
+      #medefinisikan PVC yang sudah di claim dari PV untuk di mounting/
+      #di masukan ke container pada volume mounts
+      volumes:
+        - name: rabbitmq-data
+          persistentVolumeClaim:
+            claimName: rabbitmq-pvc-data
+
+

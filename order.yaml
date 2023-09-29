@@ -1,7 +1,15 @@
+#versi api yang digunakan pada pada manifest k8s
 apiVersion: v1
+
+#mendefinisikan jenis object k8s service
 kind: Service
+
+#metadata untuk service berisi key & value
 metadata:
   name: order
+
+#medefenisi spesifikasi service yang akan di buat seperti
+# port/protocol/target port, cluster IP , selector/ object yang di pilih / object yang di tuju dll
 spec:
   type: NodePort
   ports:
@@ -9,40 +17,75 @@ spec:
   selector:
     app: order
 ---
+#versi api yang digunakan pada pada manifest k8s
 apiVersion: v1
+
+#mendefinisikan jenis object k8s service account
 kind: ServiceAccount
+
+#metadata untuk service account berisi key & value
 metadata:
   name: order
   labels:
     account: order
 ---
+#versi api yang digunakan pada manifest k8s
 apiVersion: apps/v1
+
+#mendefinisikan jenis object k8s deployment
 kind: Deployment
+
+#metadata untuk deployment berupa key & value
 metadata:
   name: order
   labels:
     app: order
+
+#medefenisikan spesifikasi deployment yang akan di buat seperti
+#selector , dan template yang berisi container untuk deployment
 spec:
+
+  #selector untuk terhubung dari object service dan label pada tempalate container
   selector:
     matchLabels:
       app: order
   strategy:
     type: Recreate
+
+  #template yang berisi spesifikasi untuk container di dalam pod deployment
   template:
+
+    #metadata untuk tempalte container berupa key & value yang di terhubung
+    #dengan mathclabel/ selector dari deployment
     metadata:
       labels:
         app: order
+
+    # medefinisikan spesifikasi container di dalam pod deployment
     spec:
       serviceAccountName: order
+
+      #medefinisikan spesifikasi container
       containers:
+
+        #nama container
       - name: order
+
+        #image container
         image: ghcr.io/yogiflogic/order-service:latest
         imagePullPolicy: IfNotPresent
+
+        #medefinisikan port dan nama port dari image order
         ports:
           - containerPort: 3000
+
+        #medefinisikan env yang di butuhkan
         env:
           - name: AMQP_URL
-            value: amqp://127.0.0.1:5672/"
+            value: amqp://rabbitmq:5672/
+
+        #medefinisikan jumlah resource max & min hardware yang di minta seperti
+        #cpu, ram dll
         resources:
           requests:
-            cpu: 200m
+            cpu: 300m
