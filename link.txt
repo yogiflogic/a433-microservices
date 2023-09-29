@@ -1,5 +1,7 @@
 Link fork result : - main branch : https://github.com/yogiflogic/a433-microservices/tree/main (saya melakukan upstream pada branch order-service & shipping-service)
                    - kubernetes-sub3 branch : https://github.com/yogiflogic/a433-microservices/tree/kubernetes-sub3
+                   - Order-Service branch : https://github.com/yogiflogic/a433-microservices/tree/order-service
+                   - Shipping-Service branch : https://github.com/yogiflogic/a433-microservices/tree/shipping-service
 
 Tautan GitHub Packages : - All package : https://github.com/yogiflogic?tab=packages&repo_name=a433-microservices
                          - Order-Service : https://github.com/yogiflogic/a433-microservices/pkgs/container/order-service
